@@ -1,1 +1,0 @@
-In this directory we will be working with the web application framework - Flask.
