@@ -2,13 +2,14 @@
 """
 Flask module that returns a Flask app
 """
-from flask import Flask, escape, render_template
+from flask import Flask, render_template
 from models import storage
 
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.url_map.strict_slashes = False
+app.config['DEBUG'] = False  # Desactivar la configuración de depuración
 
 
 @app.route('/', strict_slashes=False)

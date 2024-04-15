@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.url_map.strict_slashes = False
+app.config['DEBUG'] = False  # Desactivar la configuración de depuración
 
 
 @app.route('/', strict_slashes=False)
@@ -75,7 +76,8 @@ def states(s_id):
     states = storage.all('State')
     if s_id:
         s_id = "{}.{}".format('State', s_id)
-    return render_template('9-states.html', states=states, s_id=s_id)
+    return render_template('9-states.html',
+                           states=states, s_id=s_id)
 
 
 @app.teardown_appcontext
