@@ -10,6 +10,7 @@ from flask import Flask
 from flask import render_template
 
 app = Flask(__name__)
+app.config['DEBUG'] = False  # Desactivar la configuración de depuración
 
 
 @app.route("/states_list", strict_slashes=False)
