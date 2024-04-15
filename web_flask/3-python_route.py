@@ -29,8 +29,7 @@ def c_text(text):
 @app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
-    """ Route that displays 'Python' 
-    followed by the value of the text variable """
+    """ A route that displays python and input text """
     return "Python {}".format(text.replace("_", " "))
 
 
@@ -40,3 +39,4 @@ if __name__ == '__main__':
         host='0.0.0.0',
         port='5000'
     )
+
