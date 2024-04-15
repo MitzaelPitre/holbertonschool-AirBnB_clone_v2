@@ -58,14 +58,14 @@ def odd_or_even(n):
 @app.route('/states_list')
 def states_list():
     """ A route that displays a template and number only if an int is input """
-    states = storage.all('State')
+    states = storage.all('State').values()
     return render_template('7-states_list.html', states=states)
 
 
 @app.route('/cities_by_states')
 def cities_by_states():
     """ A route that displays states and their cities """
-    states = storage.all('State')
+    states = storage.all('State').values()
     return render_template('8-cities_by_states.html', states=states)
 
 
@@ -73,11 +73,11 @@ def cities_by_states():
 @app.route('/states/<s_id>')
 def states(s_id):
     """ A route that displays states by id if passed """
-    states = storage.all('State')
+    all_states = storage.all('State').values()
+    state = None
     if s_id:
-        s_id = "{}.{}".format('State', s_id)
-    return render_template('9-states.html',
-                           states=states, s_id=s_id)
+        state = storage.get('State', s_id)
+    return render_template('9-states.html', states=all_states, state=state)
 
 
 @app.teardown_appcontext

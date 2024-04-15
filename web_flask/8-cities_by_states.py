@@ -27,20 +27,20 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c_text(text):
     """ A route that displays C and input text """
-    return "C %s" % escape(text.replace("_", " "))
+    return "C {}".format(text.replace("_", " "))
 
 
 @app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
     """ A route that displays python and input text """
-    return "Python %s" % escape(text.replace("_", " "))
+    return "Python {}".format(text.replace("_", " "))
 
 
 @app.route('/number/<int:number>', strict_slashes=False)
 def is_number(number):
     """ A route that displays input number only if an int is input """
-    return "%s is a number" % escape(number)
+    return "{} is a number".format(number)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
@@ -58,14 +58,14 @@ def odd_or_even(n):
 @app.route('/states_list')
 def states_list():
     """ A route that displays a template and number only if an int is input """
-    states = storage.all('State')
+    states = storage.all('State').values()
     return render_template('7-states_list.html', states=states)
 
 
 @app.route('/cities_by_states')
 def cities_by_states():
     """ A route that displays states and their cities """
-    states = storage.all('State')
+    states = storage.all('State').values()
     return render_template('8-cities_by_states.html', states=states)
 
 

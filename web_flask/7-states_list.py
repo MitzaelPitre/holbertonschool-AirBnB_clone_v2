@@ -19,7 +19,7 @@ def states_list():
 
     States are sorted by name.
     """
-    states = storage.all("State")
+    states = storage.all("State").values()
     return render_template("7-states_list.html", states=states)
 
 

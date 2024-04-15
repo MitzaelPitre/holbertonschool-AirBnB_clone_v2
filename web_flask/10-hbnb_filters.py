@@ -4,6 +4,7 @@ Flask module that returns a Flask app
 """
 from flask import Flask, render_template
 from models import storage
+from models.state import State
 
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
@@ -83,7 +84,10 @@ def states(s_id):
 @app.route('/hbnb_filters')
 def hbnb_filters():
     """ A route that displays the popover search filter options """
-    states = storage.all('State')
+    states = storage.all(State)
+    if type(storage).__name__ == 'DBStorage':
+        for state in states.values():
+            state.cities = sorted(state.cities, key=lambda x: x.name)
     amenities = storage.all('Amenity')
     return render_template('10-hbnb_filters.html',
                            states=states, amenities=amenities)
