@@ -1,70 +1,32 @@
 #!/usr/bin/python3
+"""Starts a Flask web application.
+
+The application listens on 0.0.0.0, port 5000.
+Routes:
+    /states_list: HTML page with a list of all State objects in DBStorage.
 """
-Flask module that returns a Flask app
-"""
-from flask import Flask, render_template
 from models import storage
+from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
-app.jinja_env.trim_blocks = True
-app.jinja_env.lstrip_blocks = True
-app.url_map.strict_slashes = False
 
 
-@app.route('/', strict_slashes=False)
-def hello_hbnb():
-    """ A route that displays Hello HBNB! """
-    return "Hello HBNB!"
-
-
-@app.route('/hbnb', strict_slashes=False)
-def hbnb():
-    """ A route that displays HBNB """
-    return "HBNB"
-
-
-@app.route('/c/<text>', strict_slashes=False)
-def c_text(text):
-    """ A route that displays C and input text """
-    return "C {}".format(text.replace("_", " "))
-
-
-@app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
-@app.route('/python/<text>', strict_slashes=False)
-def python_text(text):
-    """ A route that displays python and input text """
-    return "Python {}".format(text.replace("_", " "))
-
-
-@app.route('/number/<int:number>', strict_slashes=False)
-def is_number(number):
-    """ A route that displays input number only if an int is input """
-    return "{} is a number".format(number)
-
-
-@app.route('/number_template/<int:n>', strict_slashes=False)
-def is_number_template(n):
-    """ A route that displays a template and number only if an int is input """
-    return render_template('5-number.html', n=n)
-
-
-@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
-def odd_or_even(n):
-    """ A route that displays a template and number only if an int is input """
-    return render_template('6-number_odd_or_even.html', n=n)
-
-
-@app.route('/states_list')
+@app.route("/states_list", strict_slashes=False)
 def states_list():
-    """ A route that displays a template and number only if an int is input """
-    states = storage.all('State')
-    return render_template('7-states_list.html', states=states)
+    """Displays an HTML page with a list of all State objects in DBStorage.
+
+    States are sorted by name.
+    """
+    states = storage.all("State")
+    return render_template("7-states_list.html", states=states)
 
 
 @app.teardown_appcontext
-def close_db(error):
-    """Closes the database at the end of the request."""
+def teardown(exc):
+    """Remove the current SQLAlchemy session."""
     storage.close()
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port='5000')
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")
