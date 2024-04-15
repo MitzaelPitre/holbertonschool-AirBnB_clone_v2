@@ -28,14 +28,15 @@ def c_text(text):
 @app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
-    """ A route that displays python and input text """
+    """ A route that displays Python followed by the value of the text variable """
     return "Python %s" % escape(text.replace("_", " "))
 
 
 @app.route('/number/<int:number>', strict_slashes=False)
 def is_number(number):
     """ A route that displays input number only if an int is input """
-    return "%s is a number" % escape(number)
+    return "%d is a number" % number
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port='5000')
