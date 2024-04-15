@@ -2,7 +2,7 @@
 """
 Flask module that returns a Flask app
 """
-from flask import Flask, escape, render_template
+from flask import Flask, render_template
 from models import storage
 
 app = Flask(__name__)
@@ -26,20 +26,20 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c_text(text):
     """ A route that displays C and input text """
-    return "C {}".format(escape(text.replace("_", " ")))
+    return "C {}".format(text.replace("_", " "))
 
 
 @app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
     """ A route that displays python and input text """
-    return "Python {}".format(escape(text.replace("_", " ")))
+    return "Python {}".format(text.replace("_", " "))
 
 
 @app.route('/number/<int:number>', strict_slashes=False)
 def is_number(number):
     """ A route that displays input number only if an int is input """
-    return "{} is a number".format(escape(number))
+    return "{} is a number".format(number)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
